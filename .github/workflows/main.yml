@@ -19,3 +19,6 @@ jobs:
         run: |
             Start-Process node -ArgumentList "server.js"
             Start-Sleep -Seconds 5
+
+      - name: Test server
+        run: Invoke-WebRequest http://localhost:3000
