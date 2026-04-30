@@ -17,4 +17,5 @@ jobs:
 
       - name: Start server
         run: |
-          start /B node server.js
+            Start-Process node -ArgumentList "server.js"
+            Start-Sleep -Seconds 5
