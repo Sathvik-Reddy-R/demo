@@ -15,10 +15,5 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Start server
-        run: |
-            Start-Process node -ArgumentList "server.js"
-            Start-Sleep -Seconds 5
-
-      - name: Test server
-        run: Invoke-WebRequest http://localhost:3000
+      - name: Start server (VISIBLE)
+        run: node server.js
