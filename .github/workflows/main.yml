@@ -1,4 +1,4 @@
-name: Deploy to EC2
+name: Local Test
 
 on:
   push:
@@ -6,24 +6,24 @@ on:
       - main
 
 jobs:
-  deploy:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup SSH
-        run: |
-          echo "${{ secrets.EC2_SSH_KEY }}" > key.pem
-          chmod 600 key.pem
+      - name: Show files
+        run: ls -la
 
-      - name: Deploy
-        run: |
-          ssh -o StrictHostKeyChecking=no -i key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
-            cd YOUR_REPO
-            git pull origin main
-            npm install
-            npm run build
-            pm2 restart all || pm2 start server.js
-          EOF
+      - name: Node version
+        run: node -v
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Success message
+        run: echo "Workflow ran successfully 🚀"
